@@ -1,22 +1,61 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+import Login from "@/views/Login"
+import Home  from "@/views/Home"
+import BasicInfo from "@/views/BasicInfo"
+import DataBak from "@/views/DataBak"
+import LogMana from "@/views/LogMana"
+import UserConfig from "@/views/UserConfig"
 
 Vue.use(VueRouter)
 
 const routes = [
   {
     path: '/',
-    name: 'home',
-    component: HomeView
-  },
-  {
-    path: '/about',
-    name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
+    name: 'Login',
+    component: Login,
+    hidden: true
+  }, {
+    path: '/home',
+    name: '首页',
+    component: Home,
+    hidden: true
+  }, {
+    path: '/home',
+    name: '用户管理',
+    component: Home,
+    meta:{
+      icon: 'el-icon-user'
+    },
+    children:[
+      {
+        path: '/basicinfo',
+        name: '基本信息',
+        component: BasicInfo
+      },{
+        path: '/userconfig',
+        name: '用户配置',
+        component: UserConfig
+      }
+    ]
+  },{
+    path: '/home',
+    name: '系统管理',
+    component: Home,
+    meta:{
+      icon: 'el-icon-s-grid'
+    },
+    children:[
+      {
+        path: '/logmana',
+        name: '日志管理',
+        component: LogMana
+      },{
+        path: '/databak',
+        name: '数据备份',
+        component: DataBak
+      }
+    ]
   }
 ]
 
