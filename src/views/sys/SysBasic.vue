@@ -4,10 +4,18 @@
       <el-tab-pane label="部门管理" name="depmana">
         <DepMana></DepMana>
       </el-tab-pane>
-      <el-tab-pane name="position" label="职位管理"><PositionMana></PositionMana></el-tab-pane>
-      <el-tab-pane name="joblevel" label="职称管理"><JobLevelMana></JobLevelMana></el-tab-pane>
-      <el-tab-pane name="ecmana" label="奖惩规则"><EcMana></EcMana></el-tab-pane>
-      <el-tab-pane name="permissmana" label="权限组"><PermissMana></PermissMana></el-tab-pane>
+      <el-tab-pane name="position" label="职位管理">
+        <PositionMana></PositionMana>
+      </el-tab-pane>
+      <el-tab-pane name="joblevel" label="职称管理">
+        <JobLevelMana></JobLevelMana>
+      </el-tab-pane>
+      <el-tab-pane name="ecmana" label="奖惩规则">
+        <EcMana></EcMana>
+      </el-tab-pane>
+      <el-tab-pane name="permissmana" label="权限组">
+        <PermissMana></PermissMana>
+      </el-tab-pane>
     </el-tabs>
   </div>
 </template>
@@ -22,15 +30,15 @@ import PositionMana from "@/components/sys/basic/PositionMana";
 
 export default {
   name: "SysBasic",
-  components:{
+  components: {
     DepMana,
     EcMana,
     JobLevelMana,
     PermissMana,
     PositionMana
   },
-  data(){
-    return{
+  data() {
+    return {
       activeName: 'position'
     }
   }

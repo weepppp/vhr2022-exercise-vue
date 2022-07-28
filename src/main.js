@@ -41,8 +41,13 @@ router.beforeEach((to, from, next) => {
         //说明要去的是登录页面
         next();
     }else{
-        initMenu(store, router);
-        next();
+        if(window.sessionStorage.getItem("hr")) {
+            initMenu(store, router);
+            next();
+        } else {
+            next("/?redirect="+to.path);
+        }
+
     }
 })
 
