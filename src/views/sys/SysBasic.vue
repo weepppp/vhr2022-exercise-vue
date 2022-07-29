@@ -39,7 +39,7 @@ export default {
   },
   data() {
     return {
-      activeName: 'position'
+      activeName: 'PermissMana'
     }
   }
 }

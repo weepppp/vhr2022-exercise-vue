@@ -6,6 +6,7 @@ import BasicInfo from "@/views/BasicInfo"
 import DataBak from "@/views/DataBak"
 import LogMana from "@/views/LogMana"
 import UserConfig from "@/views/UserConfig"
+import Chat from "@/views/Chat"
 
 Vue.use(VueRouter)
 
@@ -19,6 +20,11 @@ const routes = [
     path: '/home',
     name: '首页',
     component: Home,
+    hidden: true
+  }, {
+    path: '/chat',
+    name: '聊天',
+    component: Chat,
     hidden: true
   }, {
     path: '/home',

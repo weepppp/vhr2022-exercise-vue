@@ -1,8 +1,12 @@
-const { defineConfig } = require('@vue/cli-service')
+const {defineConfig} = require('@vue/cli-service')
 module.exports = defineConfig({
-  transpileDependencies: true
+    transpileDependencies: true
 })
 let proxyObj = {};
+proxyObj['/myws'] = {
+    ws: true,
+    target: "ws://localhost:8083"
+};
 proxyObj['/'] = {
     ws: false,
     target: 'http://localhost:8083',

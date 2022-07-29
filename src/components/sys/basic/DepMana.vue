@@ -18,7 +18,7 @@
               type="danger"
               size="mini"
               style="padding: 2px"
-              @click="() => remove(node, data)">
+              @click="deleteDepartment(data)">
             删除部门
           </el-button>
         </span>
@@ -89,13 +89,51 @@ export default {
     this.initDepts();
   },
   methods: {
-    addDep2Deps(deps,dep) {
-      deps.forEach(d=>{
-        if (d.id == dep.parentId){
+    removeDepfromDeps(deps, dep,parent) {
+      for (let i = 0; i < deps.length; i++) {
+        let d = deps[i];
+        if(d.id == dep.id){
+        deps.splice(i,1);
+        if (parent){
+          if (deps.length == 0){
+            parent.isParent = false;
+          }
+        }
+        return;
+      } else {
+          this.removeDepfromDeps(d.children,dep,d);
+        }
+      }
+    },
+    deleteDepartment(data) {
+      this.$confirm('此操作将永久删除【' + data.name + '】部门, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        if (data.isParent) {
+          this.$message.error("该部门下有子部门，删除失败");
+        } else {
+          this.deleteRequest("/system/basic/department/" + data.id).then(resp => {
+            if (resp) {
+              this.removeDepfromDeps(this.depts,data)
+            }
+          })
+        }
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消删除'
+        });
+      });
+    },
+    addDep2Deps(deps, dep) {
+      deps.forEach(d => {
+        if (d.id == dep.parentId) {
           d.children = d.children.concat(dep);
           return;
         } else {
-          this.addDep2Deps(d.children,dep);
+          this.addDep2Deps(d.children, dep);
         }
       })
     },
@@ -106,7 +144,7 @@ export default {
           this.dep.name = '';
           this.dep.parentId = null;
           // this.initDepts();
-          this.addDep2Deps(this.depts,resp.data);
+          this.addDep2Deps(this.depts, resp.data);
         }
       })
     },
